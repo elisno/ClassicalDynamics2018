@@ -15,15 +15,10 @@ end
     return J
 end
 
-function poinc(ttotal,tstep,B)
+function poinc(n,tstep,B)
     ds = ContinuousDynamicalSystem(eom_inductor,zeros(2),[0.1,B],inductor_jac,t0 = 0.0)
-    a = trajectory(ds, ttotal, dt = tstep,Ttr=100.0) # every period T = 2π/ω
-    sc = scatter(a[:,1],a[:,2], marker = (:auto, 1, 0.0, :blue,0,0.2,:black,:solid),dpi=800,size=(600,400))
+    a = trajectory(ds, n*tstep, dt = tstep,Ttr=100*tstep) # every period T = 2π/ω
+    sc = scatter(a[:,1],a[:,2], marker = (:auto, 1, 0.0, :blue,0,0.2,:black,:solid),dpi=800,size=(600,400),legend=false)
     #sc = scatter(a[:,1],a[:,2], line = (:line, :solid, nothing, 0.6, 1, :red))
     return sc
 end
-
-
-
-poinc(10.0,10.0,9.80)
-#poinc(0.001,9.80)
